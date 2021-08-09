@@ -4,10 +4,12 @@ import {Component} from 'react'
 class App extends Component {
   
   constructor (props) {
-    // we need below line of code
     super(props)
     this.state = {
-      
+      baseURL: 'https://api.giphy.com/v1/gifs/search?',
+      api_key: 'apikey=' + process.env.REACT_APP_APIKEY,
+      query: '&q=',
+      offset: 'offset=0'
     }
   }
    
@@ -27,7 +29,9 @@ class App extends Component {
     })
     , err => console.log(err))
 
-    
+    this.setState({
+      searchURL: url
+    })
   }
   render(){
     return (
@@ -45,7 +49,6 @@ class App extends Component {
         </form>
         <div>
             {this.state.gif?.data.map(img=>{
-              // need return() to render results
                 return(
                     <div>
                         <img src={img.images.downsized.url} alt="Alt text"></img>
